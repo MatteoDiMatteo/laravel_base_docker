@@ -19,11 +19,11 @@ services:
     ports:
       - '12500:8000'
     environment:
-      - BROADCAST_DRIVER=predis
-      - CACHE_DRIVER=predis
-      - FILESYSTEM_DISK=predis
-      - QUEUE_CONNECTION=predis
-      - SESSION_DRIVER=predis
+      #- BROADCAST_DRIVER=predis
+      #- CACHE_DRIVER=predis
+      #- FILESYSTEM_DISK=predis
+      #- QUEUE_CONNECTION=predis
+      #- SESSION_DRIVER=predis
       - SESSION_LIFETIME=120
       - DB_HOST=localhost
       - DB_PORT=3306

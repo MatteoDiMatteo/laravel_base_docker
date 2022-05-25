@@ -34,4 +34,3 @@ services:
       - './laravel:/app'
     depends_on:
       - percona
-    command: -c composer require predis/predis

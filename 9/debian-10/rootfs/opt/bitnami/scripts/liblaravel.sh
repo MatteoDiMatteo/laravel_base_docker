@@ -74,9 +74,10 @@ laravel_validate() {
 #########################
 laravel_initialize() {
     if is_dir_empty "/app"; then
+        debug_execute composer require predis/predis
+        debug_execute composer install
         info "Creating Laravel application in /app"
         cp -r "${LARAVEL_BASE_DIR}/." .
-        debug_execute composer require predis/predis
         info "Regenerating APP_KEY"
         debug_execute php artisan key:generate --ansi
 

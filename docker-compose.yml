@@ -1,23 +1,36 @@
 version: '2'
 
 services:
-  mariadb:
-    image: docker.io/bitnami/mariadb:10.6
+  percona:
+    image: docker.io/percona:psmdb-5.0.8
     environment:
       # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      # ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_ROOT_PASSWORD=dbPassword123456
+      # Remove host variable to allow %
+      #- MYSQL_ROOT_HOST=localhost
+      - MYSQL_DATABASE=DB
+  redis:
+    image: docker.io/bitnami/redis:latest
+    environment:
       - ALLOW_EMPTY_PASSWORD=yes
-      - MARIADB_USER=bn_myapp
-      - MARIADB_DATABASE=bitnami_myapp
   myapp:
     image: docker.io/bitnami/laravel:9
     ports:
-      - '8000:8000'
+      - '12799:8000'
     environment:
-      - DB_HOST=mariadb
+      - BROADCAST_DRIVER=predis
+      - CACHE_DRIVER=predis
+      - FILESYSTEM_DISK=predis
+      - QUEUE_CONNECTION=predis
+      - SESSION_DRIVER=predis
+      - SESSION_LIFETIME=120
+      - DB_HOST=localhost
       - DB_PORT=3306
-      - DB_USERNAME=bn_myapp
-      - DB_DATABASE=bitnami_myapp
+      - DB_USERNAME=root
+      - DB_DATABASE=DB
+      - DB_PASSWORD=dbPassword123456
     volumes:
       - './my-project:/app'
     depends_on:
-      - mariadb
+      - percona

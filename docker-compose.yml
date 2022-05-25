@@ -15,7 +15,8 @@ services:
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
   laravel:
-    image: docker.io/bitnami/laravel:latest
+    #image: docker.io/bitnami/laravel:latest
+    image: 172.17.0.4:9999/laravel:base:latest
     ports:
       - '12500:8000'
     environment:

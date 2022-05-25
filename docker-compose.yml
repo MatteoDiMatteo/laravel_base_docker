@@ -1,5 +1,4 @@
 version: '2'
-command: -c composer require predis/predis
 services:
   percona:
     image: docker.io/percona:psmdb-5.0.8
@@ -35,3 +34,4 @@ services:
       - './laravel:/app'
     depends_on:
       - percona
+    command: -c composer require predis/predis
